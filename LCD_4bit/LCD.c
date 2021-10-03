@@ -50,7 +50,7 @@ void lcd_data(unsigned char data)
 }
 
 // Clear display
-lcd_clear(void)
+void lcd_clear(void)
 {
   lcd_cmd(0x01);
   _delay_ms(2);
@@ -58,7 +58,7 @@ lcd_clear(void)
 
 
 // Init dispay
-void lcd_init()
+void lcd_init(void)
 {
 	lcd_init_pins();
 	DDRB |= (1<<LCD_RS) | (1<<LCD_EN);
