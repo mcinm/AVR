@@ -4,6 +4,15 @@
 
 #include "LCD.h"
 
+// Init pins
+static inline void lcd_init_pins(void)
+{
+  LCD_DATA_DDR |= (1<<LCD_D7) | (1<<LCD_D6) | (1<<LCD_D5) | (1<<LCD_D4);
+  LCD_RSDDR |= (1<<LCD_RS);
+  LCD_ENDDR |= (1<<LCD_EN);
+}
+
+
 // Send 4 bits
 static inline void lcd_send_4bits(unsigned char data)
 {
@@ -61,8 +70,6 @@ void lcd_clear(void)
 void lcd_init(void)
 {
 	lcd_init_pins();
-	DDRB |= (1<<LCD_RS) | (1<<LCD_EN);
-	
 	LCD_RSPORT &= ~(1<<LCD_RS);
 	LCD_ENPORT &= ~(1<<LCD_EN);
 	
