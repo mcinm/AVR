@@ -16,7 +16,7 @@ static inline void lcd_init_pins(void)
 // Send 4 bits
 static inline void lcd_send_4bits(unsigned char data)
 {
-  if (data&(1<<0)) LCD_data_PORT |= (1<<LCD_D4);
+  if (data&(1<<0)) LCD_DATA_PORT |= (1<<LCD_D4);
   else LCD_DATA_PORT &= ~(1<<LCD_D4);
   
   if (data&(1<<1)) LCD_DATA_PORT |= (1<<LCD_D5);
@@ -80,7 +80,7 @@ void lcd_init(void)
 	EN_LOW;
 	_delay_ms(4.1);
 	EN_HIGH;
-	lcd_send_4bits(0x03)
+	lcd_send_4bits(0x03);
 	EN_LOW;
 	_delay_us(100);
 	EN_HIGH;
@@ -126,7 +126,7 @@ void lcd_cursor(unsigned char y, unsigned char x)
 void lcd_define_character(unsigned char addr, const unsigned char *tab_pointer)
 {
   lcd_cmd(0x40 | ((addr & 0x7) << 3));
-  for (unsigned char i=0; i<8; i++) lcd_data(&tab_pointer[i]); // Load from RAM
+  for (unsigned char i=0; i<8; i++) lcd_data(tab_pointer[i]); // Load from RAM
   //for (unsigned char i=0; i<8; i++) lcd_data(pgm_read_byte(&tab_pointer[i])); // Load from flash
   lcd_cmd(0x80);
 }
